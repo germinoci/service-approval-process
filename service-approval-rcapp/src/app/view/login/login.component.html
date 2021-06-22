@@ -1,0 +1,26 @@
+<div class="row justify-content-center">
+
+  <div class="col-xl-6">
+    <div class="card">
+      <div class="card-header">
+        Prihlásenie
+      </div>
+      <div class="card-body">
+        <div>
+          <form #form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="mb-3">
+              <label for="loginName" class="form-label">Prihlasovacie meno</label>
+              <input type="text" class="form-control" id="loginName" formControlName="loginName" required>
+            </div>
+            <div class="mb-3">
+              <label for="loginPassword" class="form-label">Heslo</label>
+              <input type="password" class="form-control" id="loginPassword" formControlName="password" required>
+            </div>
+            <button [disabled]="!form.checkValidity()" type="submit" class="btn btn-primary">Prihlásiť sa</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-xl">
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-first" type="button" role="tab">Posudzované služby</button>
+      </div>
+    </nav>
+
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-first" role="tabpanel" aria-labelledby="nav-home-tab">
+        <table class="table table-borderless table-striped">
+          <thead>
+          <tr>
+            <th style="width: 70%">Názov</th>
+            <th style="width: 20%">Dátum zaevidovania</th>
+            <th style="width: 10%"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Test</td>
+            <td>{{'2020-06-10' | date: 'dd. MM. YYYY'}}</td>
+            <td>
+              <span class="bi-check-lg action-icon action-icon-positive" (click)="confirmAssessed(1)"></span>
+              <span class="bi-x-lg action-icon action-icon-negative" style="margin-left: 15px" (click)="denyAssessed(1)"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>Test</td>
+            <td>{{'2020-06-10' | date: 'dd. MM. YYYY'}}</td>
+            <td>
+              <span class="bi-check-lg action-icon action-icon-positive" (click)="confirmAssessed(1)"></span>
+              <span class="bi-x-lg action-icon action-icon-negative" style="margin-left: 15px" (click)="denyAssessed(1)"></span>
+            </td>
+          </tr>
+          <tr>
+            <td>Test</td>
+            <td>{{'2020-06-10' | date: 'dd. MM. YYYY'}}</td>
+            <td>
+              <span class="bi-check-lg action-icon action-icon-positive" (click)="confirmAssessed(1)"></span>
+              <span class="bi-x-lg action-icon action-icon-negative" style="margin-left: 15px" (click)="denyAssessed(1)"></span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>

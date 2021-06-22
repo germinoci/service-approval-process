@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("~bootstrap-icons/font/bootstrap-icons.css");
+
+.action-icon {
+
+  cursor: pointer;
+
+  &.action-icon-positive:hover {
+    color: #009700;
+  }
+
+  &.action-icon-negative:hover {
+    color: #c60200;
+  }
+}
