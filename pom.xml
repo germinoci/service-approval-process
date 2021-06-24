@@ -29,16 +29,13 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
   <dependencies>
 
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.20</version>
-      <scope>provided</scope>
+      <groupId>org.kie.kogito</groupId>
+      <artifactId>kogito-quarkus</artifactId>
     </dependency>
-
-
     <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>kogito-quarkus-rules</artifactId>
@@ -51,14 +48,14 @@
       <groupId>org.kie.kogito</groupId>
       <artifactId>kogito-quarkus-serverless-workflow</artifactId>
     </dependency>
-    <!-- <dependency>
+    <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>kogito-quarkus-predictions</artifactId>
-    </dependency> -->
-    <!-- <dependency>
+    </dependency>
+    <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-arc</artifactId>
-    </dependency> -->
+    </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy</artifactId>
@@ -74,13 +71,6 @@
       <artifactId>quarkus-smallrye-openapi</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.20</version>
-      <scope>provided</scope>
-    </dependency>
-
 
     <dependency>
       <groupId>org.kie.kogito</groupId>
@@ -88,23 +78,24 @@
     </dependency>
     <dependency>
       <groupId>org.kie.kogito</groupId>
-      <artifactId>jobs-management-quarkus-addon</artifactId>
+      <artifactId>kogito-events-reactive-messaging-addon</artifactId>
     </dependency>
     <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>process-svg-quarkus-addon</artifactId>
     </dependency>
-    <!-- <dependency>
+    <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>infinispan-persistence-addon</artifactId>
-    </dependency> -->
+    </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-infinispan-client</artifactId>
     </dependency>
-
-
-
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-elytron-security-properties-file</artifactId>
+    </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
@@ -113,7 +104,18 @@
       <groupId>org.kie.kogito</groupId>
       <artifactId>kogito-cloudevents-quarkus-addon</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-vertx-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-qute</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.kie.kogito</groupId>
+      <artifactId>jobs-management-quarkus-addon</artifactId>
+    </dependency>
 
 
 
@@ -135,22 +137,27 @@
       <artifactId>rest-assured</artifactId>
       <scope>test</scope>
     </dependency> -->
-
-
-
-
-<dependency>
-  <groupId>io.quarkus</groupId>
-  <artifactId>quarkus-elytron-security-properties-file</artifactId>
-</dependency>
-
-
-
   </dependencies>
 
-
-
   <build>
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-maven-plugin</artifactId>
+        <version>${quarkus-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <!-- <build>
 
     <plugins>
       <plugin>
@@ -222,5 +229,5 @@
       <quarkus.package.type>native</quarkus.package.type>
       </properties>
       </profile>
-      </profiles>
+      </profiles> -->
 </project>

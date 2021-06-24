@@ -59,16 +59,33 @@ REST is easy peasy with this Hello World RESTEasy resource.
 [Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
 
 
+### Management console / task console / graphql - docker compose
+
+folder ./docker-compose/README.md
+
+
 ### Management console - local (not finished)
 https://docs.jboss.org/kogito/release/latest/html_single/#proc-management-console-using_kogito-developing-process-services
 `java -Dquarkus.http.port=8280 -jar management-console-1.7.0.Final-runner.jar`
 http://localhost:8280/
 
 
+https://infinispan.org/get-started/
+`docker run -it -p 11222:11222 -e USER="admin" -e PASS="password" quay.io/infinispan/server:12.1`
+http://localhost:11222/
+
+
 https://docs.jboss.org/kogito/release/latest/html_single/#proc-data-index-service-using_kogito-configuring
 `java -Dquarkus.infinispan-client.auth-username=admin -Dquarkus.infinispan-client.auth-password=password -jar data-index-service-infinispan-1.7.0.Final-runner.jar`
 
 
-https://infinispan.org/get-started/
-`docker run -it -p 11222:11222 -e USER="admin" -e PASS="password" quay.io/infinispan/server:12.1`
-http://localhost:11222/
+https://docs.jboss.org/kogito/release/latest/html_single/#proc-jobs-service-using_kogito-configuring
+`java -jar jobs-service-common-1.7.0.Final-runner.jar`
+
+https://docs.jboss.org/kogito/release/latest/html_single/#proc-task-console-using_kogito-developing-process-services
+`java -Dquarkus.http.port=8380 -jar task-console-1.7.0.Final-runner.jar`
+
+
+apache-kafka
+cd '/home/germinoci/Develop/_projects/mou/service-approval-process/src/main/docker'
+`docker-compose up -d`
