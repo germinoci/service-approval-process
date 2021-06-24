@@ -63,6 +63,21 @@ REST is easy peasy with this Hello World RESTEasy resource.
 
 folder ./docker-compose/README.md
 
+Server Managenemt console
+http://172.17.0.1:11222/console/
+
+graphiql
+http://localhost:8180/graphiql/
+
+task console
+http://localhost:8380/TaskInbox/
+
+Management console
+http://localhost:8280/ProcessInstances/
+
+swagger
+http://localhost:8080/q/swagger-ui/
+
 
 ### Management console - local (not finished)
 https://docs.jboss.org/kogito/release/latest/html_single/#proc-management-console-using_kogito-developing-process-services
