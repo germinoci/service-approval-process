@@ -1,3 +1,4 @@
+import { OfficerService } from './../service/officer.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OfficerViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private svc: OfficerService) { }
 
   ngOnInit(): void {
+    this.svc.getApprovals().toPromise().then((response) => {
+      console.log(response);
+    })
   }
 
   public confirmAssessed(id: number): void {

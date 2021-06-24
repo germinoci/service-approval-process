@@ -6,6 +6,7 @@ import {ManagerViewComponent} from './manager-view/manager-view.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ManagerService} from './service/manager.service';
 import {OfficerService} from './service/officer.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import {OfficerService} from './service/officer.service';
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     ReactiveFormsModule
   ],
   providers: [
