@@ -1,0 +1,20 @@
+apiVersion: app.kiegroup.org/v1beta1
+kind: KogitoRuntime
+metadata:
+  name: service-approval-process
+spec:
+  replicas: 1
+  image: docker.demor.sk/kogito/service-approval-process:latest
+  infra:
+    - infinispan-infra
+  env:
+    - name: quarkus.infinispan-client.use-auth
+      value: "true"
+    - name: quarkus.infinispan-client.sasl-mechanism
+      value: SCRAM-SHA-256
+    - name: quarkus.infinispan-client.server-list
+      value: 10.107.138.122:11222
+    - name: quarkus.infinispan-client.auth-realm
+      value: default
+    - name: quarkus.security.users.embedded.plain-text
+      value: "false"
