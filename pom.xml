@@ -36,10 +36,10 @@
       <groupId>org.kie.kogito</groupId>
       <artifactId>kogito-quarkus</artifactId>
     </dependency>
-    <dependency>
+    <!-- <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>kogito-quarkus-rules</artifactId>
-    </dependency>
+    </dependency> -->
     <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>kogito-quarkus-decisions</artifactId>
@@ -52,13 +52,20 @@
       <groupId>org.kie.kogito</groupId>
       <artifactId>kogito-quarkus-predictions</artifactId>
     </dependency>
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-arc</artifactId>
     </dependency>
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-resteasy-jackson</artifactId>
     </dependency>
 
     <dependency>
@@ -76,26 +83,32 @@
       <groupId>org.kie.kogito</groupId>
       <artifactId>process-management-addon</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>kogito-events-reactive-messaging-addon</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>process-svg-quarkus-addon</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>infinispan-persistence-addon</artifactId>
     </dependency>
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-infinispan-client</artifactId>
     </dependency>
+    <!-- basic auth -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-elytron-security-properties-file</artifactId>
     </dependency>
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
@@ -104,10 +117,7 @@
       <groupId>org.kie.kogito</groupId>
       <artifactId>kogito-cloudevents-quarkus-addon</artifactId>
     </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-vertx-web</artifactId>
-    </dependency>
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-qute</artifactId>
@@ -118,10 +128,14 @@
     </dependency>
 
 
-
-
-    
-        
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-vertx-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.kie.kogito</groupId>
+      <artifactId>kogito-cloudevents-quarkus-addon</artifactId>
+    </dependency>
 
 
 <!-- test -->

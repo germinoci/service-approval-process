@@ -1,16 +1,16 @@
 package sk.gov.mou;
 
 
-public class Service {
+public class ServiceData {
 
-    private ServiceStatus status;
     private String serviceId;
+    private ServiceStatus status;
     
-    public Service() {
+    public ServiceData() {
     }
 
-    public Service(ServiceStatus status, String serviceId) {
-        this.status = status;
+    public ServiceData(String serviceId, ServiceStatus status) {
+       this.status = status;
         this.serviceId = serviceId;
     }
 
@@ -32,7 +32,10 @@ public class Service {
 
     @Override
     public String toString() {
-        return "Service [serviceId=" + serviceId + ", status=" + status + "]";
+        return "ServiceData [serviceId=" + serviceId + ", status=" + status + "]";
     }
+
+ 
+
 
 }

@@ -1,0 +1,42 @@
+syntax = "proto2"; 
+package sk.gov.mou.service_approval; 
+import "kogito-index.proto";
+import "kogito-types.proto";
+option kogito_model = "Service_approval";
+option kogito_id = "service_approval";
+
+/* @Indexed */ 
+message ServiceData { 
+	option java_package = "sk.gov.mou.service_approval";
+	/* @Field(store = Store.YES) @SortableField */ 
+	optional string serviceId = 1; 
+	/* @Field(store = Store.YES) @SortableField */ 
+	optional ServiceStatus status = 2; 
+}
+/* @Indexed */ 
+message Service_approval { 
+	option java_package = "sk.gov.mou.service_approval";
+	/* @Field(store = Store.YES) @SortableField */ 
+	optional string id = 1; 
+	/* @Field(store = Store.YES) @SortableField
+ @VariableInfo(tags="") */ 
+	optional bool isApproved = 2; 
+	/* @Field(store = Store.YES) @SortableField
+ @VariableInfo(tags="") */ 
+	optional bool isAssigned = 3; 
+	/* @Field(store = Store.YES) @SortableField
+ @VariableInfo(tags="") */ 
+	optional bool isPublished = 4; 
+	/* @Field(store = Store.YES) @SortableField
+ @VariableInfo(tags="") */ 
+	optional ServiceData serviceData = 5; 
+	/* @Field(store = Store.YES) @SortableField */ 
+	optional org.kie.kogito.index.model.KogitoMetadata metadata = 6; 
+}
+enum ServiceStatus { 
+	option java_package = "sk.gov.mou.service_approval";
+	PUBLISHED = 2;
+	ASSIGNED = 1;
+	STARTED = 3;
+	APPROVED = 0;
+}
