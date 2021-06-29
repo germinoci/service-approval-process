@@ -1,0 +1,11 @@
+apiVersion: app.kiegroup.org/v1beta1
+kind: KogitoSupportingService
+metadata:
+  name: management-console
+spec:
+  serviceType: ManagementConsole
+  replicas: 1
+  infra:
+     - kafka-infra
+  supportingService:
+     - data-index

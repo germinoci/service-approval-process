@@ -8,13 +8,5 @@ spec:
   infra:
     - infinispan-infra
   env:
-    - name: quarkus.infinispan-client.use-auth
-      value: "true"
     - name: quarkus.infinispan-client.sasl-mechanism
       value: SCRAM-SHA-256
-    - name: quarkus.infinispan-client.server-list
-      value: 10.107.138.122:11222
-    - name: quarkus.infinispan-client.auth-realm
-      value: default
-    - name: quarkus.security.users.embedded.plain-text
-      value: "false"
