@@ -51,22 +51,24 @@ services:
       LOG_DIR: "/tmp/logs"
 
 
-  # keycloak:
-  #   container_name: keycloak
-  #   image: jboss/keycloak
-  #   ports:
-  #     - "8480:8080"
-  #   volumes:
-  #     - ./keycloak/kogito-realm.json:/tmp/kogito-realm.json
-  #   healthcheck:
-  #     test: [ "CMD", "curl", "-f", "http://localhost:8080/auth/realms/kogito" ]
-  #     interval: 1s
-  #     timeout: 1s
-  #     retries: 50
-  #   environment:
-  #     KEYCLOAK_USER: admin
-  #     KEYCLOAK_PASSWORD: admin
-  #     KEYCLOAK_IMPORT: /tmp/kogito-realm.json
+  keycloak:
+    container_name: keycloak
+    image: jboss/keycloak
+    ports:
+      - "8480:8080"
+    volumes:
+      - ./keycloak/kogito-realm.json:/tmp/kogito-realm.json
+      # - "$PWD/export:/tmp/export"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/auth/realms/kogito" ]
+      interval: 1s
+      timeout: 1s
+      retries: 50
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_IMPORT: /tmp/kogito-realm.json
+    # command: -b 0.0.0.0 -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/export/kcdump.json
 
   data-index:
     container_name: data-index
@@ -116,8 +118,8 @@ services:
      - ./svg/:/home/kogito/data/svg/
    environment:
       KOGITO_DATAINDEX_HTTP_URL: http://${DOCKER_GATEWAY_HOST}:8180
-      KOGITO_MANAGEMENT_CONSOLE_PROPS: -Dkogito.svg.folder.path=/home/kogito/data/svg
-      # KOGITO_MANAGEMENT_CONSOLE_PROPS: -Dquarkus.profile=keycloak -D%keycloak.quarkus.oidc.auth-server-url=http://${DOCKER_GATEWAY_HOST}:8480/auth/realms/kogito -Dkogito.svg.folder.path=/home/kogito/data/svg
+      # KOGITO_MANAGEMENT_CONSOLE_PROPS: -Dkogito.svg.folder.path=/home/kogito/data/svg
+      KOGITO_MANAGEMENT_CONSOLE_PROPS: -Dquarkus.profile=keycloak -D%keycloak.quarkus.oidc.auth-server-url=http://${DOCKER_GATEWAY_HOST}:8480/auth/realms/kogito -Dkogito.svg.folder.path=/home/kogito/data/svg
 
   task-console:
     container_name: task-console
@@ -128,5 +130,5 @@ services:
       data-index:
         condition: service_started
     environment:
-      KOGITO_TASK_CONSOLE_PROPS: -Dkogito.test.user-system.enabled=true
-      # KOGITO_TASK_CONSOLE_PROPS: -Dquarkus.profile=keycloak -D%keycloak.quarkus.oidc.auth-server-url=http://${DOCKER_GATEWAY_HOST}:8480/auth/realms/kogito
+      # KOGITO_TASK_CONSOLE_PROPS: -Dkogito.test.user-system.enabled=true
+      KOGITO_TASK_CONSOLE_PROPS: -Dquarkus.profile=keycloak -D%keycloak.quarkus.oidc.auth-server-url=http://${DOCKER_GATEWAY_HOST}:8480/auth/realms/kogito
