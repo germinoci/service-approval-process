@@ -9,3 +9,6 @@ spec:
   infra:
      - infinispan-infra
      - kafka-infra
+  env:
+  - name: quarkus.infinispan-client.sasl-mechanism
+    value: SCRAM-SHA-256

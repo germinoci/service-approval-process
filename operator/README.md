@@ -32,6 +32,7 @@ docker push docker.demor.sk/kogito/service-approval-process:latest
 spustenie kogito runtime s infinispanom
 ---------------------------------------
 kubectl apply -f kogito-runtime-process.yaml
+kubectl expose deployment service-approval-process --type=LoadBalancer --name=service-approval-process-exposed
 
 
 
@@ -49,3 +50,21 @@ kubectl apply -f create-kafka-cluster.yaml
 nastavenie kogito infra s kafkom
 --------------------------------
 kubectl apply -f kogito-kafka-infra.yaml
+
+instalacia data index
+---------------------
+kubectl apply -f operator/kogito-data-index.yaml
+
+vytvorenie kogito infra pre data index
+--------------------------------------
+kubectl apply -f operator/kogito-data-index-infra.yaml
+
+
+instalacia kogito task console
+------------------------------
+kubectl apply -f operator/kogito-task-console.yaml
+kubectl expose deployment task-console --type=LoadBalancer --name=task-console-exposed
+
+
+
+

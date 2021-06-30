@@ -1,0 +1,11 @@
+apiVersion: app.kiegroup.org/v1beta1
+kind: KogitoSupportingService
+metadata:
+  name: task-console
+spec:
+  serviceType: TaskConsole
+  replicas: 1
+  image: quay.io/kiegroup/kogito-task-console
+  env:
+    - name: KOGITO_DATAINDEX_HTTP_URL
+      value: http://10.101.147.113:8080

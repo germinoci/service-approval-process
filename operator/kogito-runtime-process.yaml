@@ -10,3 +10,9 @@ spec:
   env:
     - name: quarkus.infinispan-client.sasl-mechanism
       value: SCRAM-SHA-256
+    - name: kogito.dataindex.http.url
+      value: http://10.101.147.113:8080
+    - name: kogito.dataindex.ws.url 
+      value: ws://10.101.147.113:8080
+    - name: kogito.service.url
+      value: http://10.103.12.204:8080
