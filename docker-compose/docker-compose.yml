@@ -49,16 +49,16 @@ services:
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       LOG_DIR: "/tmp/logs"
-
+   
 
   keycloak:
     container_name: keycloak
-    image: jboss/keycloak
+    image: quay.io/keycloak/keycloak:latest
     ports:
       - "8480:8080"
     volumes:
-      - ./keycloak/kogito-realm.json:/tmp/kogito-realm.json
-      # - "$PWD/export:/tmp/export"
+      # - ./keycloak/export/kogito-realm.json:/tmp/kogito-realm.json
+      - "$PWD/keycloak/import:/tmp/import"
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8080/auth/realms/kogito" ]
       interval: 1s
@@ -67,8 +67,9 @@ services:
     environment:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
-      KEYCLOAK_IMPORT: /tmp/kogito-realm.json
-    # command: -b 0.0.0.0 -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/export/kcdump.json
+      # KEYCLOAK_IMPORT: /tmp/kogito-realm.json
+      # command: -b 0.0.0.0 -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/tmp/export -Dkeycloak.profile.feature.upload_scripts=enabled
+    command: -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/tmp/import -Dkeycloak.migration.strategy=IGNORE_EXISTING 
 
   data-index:
     container_name: data-index
@@ -118,7 +119,6 @@ services:
      - ./svg/:/home/kogito/data/svg/
    environment:
       KOGITO_DATAINDEX_HTTP_URL: http://${DOCKER_GATEWAY_HOST}:8180
-      # KOGITO_MANAGEMENT_CONSOLE_PROPS: -Dkogito.svg.folder.path=/home/kogito/data/svg
       KOGITO_MANAGEMENT_CONSOLE_PROPS: -Dquarkus.profile=keycloak -D%keycloak.quarkus.oidc.auth-server-url=http://${DOCKER_GATEWAY_HOST}:8480/auth/realms/kogito -Dkogito.svg.folder.path=/home/kogito/data/svg
 
   task-console:
@@ -130,5 +130,4 @@ services:
       data-index:
         condition: service_started
     environment:
-      # KOGITO_TASK_CONSOLE_PROPS: -Dkogito.test.user-system.enabled=true
       KOGITO_TASK_CONSOLE_PROPS: -Dquarkus.profile=keycloak -D%keycloak.quarkus.oidc.auth-server-url=http://${DOCKER_GATEWAY_HOST}:8480/auth/realms/kogito

@@ -59,48 +59,58 @@ REST is easy peasy with this Hello World RESTEasy resource.
 [Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
 
 
+### Run complete stack with keycloak auth in docker containers - docker-compose
+
+`mvn clean compile quarkus:dev`
+
+`cd docker-compose `
+
+`./startServices.sh`
+
+### Keycloak
+
+It will install the *Kogito Realm* that comes with a predefined set of users:
+| Login            | Password   | Roles                         |
+| ---------------- | ---------- | ----------------------------- |
+|    admin         |   admin    | *admin*, *manager*, *officer* |
+|    referent      |   referent | *officer*                     |
+|    manazer       |   manazer  | *manager*                     |
+
 ### Management console / task console / graphql - docker compose
-
-folder ./docker-compose/README.md
-
-Server Managenemt console
+# Link Server Managenemt console
 http://172.17.0.1:11222/console/
 
-graphiql
+# Link graphiql
 http://localhost:8180/graphiql/
 
-task console
+# Link Task console
 http://localhost:8380/TaskInbox/
 
-Management console
+# Link Managenemt console
 http://localhost:8280/ProcessInstances/
 
-swagger
+# Link Swagger/ Open api
 http://localhost:8080/q/swagger-ui/
 
 
-### Management console - local (not finished)
+### Management console - local
 https://docs.jboss.org/kogito/release/latest/html_single/#proc-management-console-using_kogito-developing-process-services
 `java -Dquarkus.http.port=8280 -jar management-console-1.7.0.Final-runner.jar`
 http://localhost:8280/
 
+### Task console - local
+https://docs.jboss.org/kogito/release/latest/html_single/#proc-task-console-using_kogito-developing-process-services
+`java -Dquarkus.http.port=8380 -jar task-console-1.7.0.Final-runner.jar`
 
+### Infinispan server - local
 https://infinispan.org/get-started/
 `docker run -it -p 11222:11222 -e USER="admin" -e PASS="password" quay.io/infinispan/server:12.1`
 http://localhost:11222/
 
-
+### Infinispan client - local
 https://docs.jboss.org/kogito/release/latest/html_single/#proc-data-index-service-using_kogito-configuring
 `java -Dquarkus.infinispan-client.auth-username=admin -Dquarkus.infinispan-client.auth-password=password -jar data-index-service-infinispan-1.7.0.Final-runner.jar`
 
-
+### Job service client - local
 https://docs.jboss.org/kogito/release/latest/html_single/#proc-jobs-service-using_kogito-configuring
 `java -jar jobs-service-common-1.7.0.Final-runner.jar`
-
-https://docs.jboss.org/kogito/release/latest/html_single/#proc-task-console-using_kogito-developing-process-services
-`java -Dquarkus.http.port=8380 -jar task-console-1.7.0.Final-runner.jar`
-
-
-apache-kafka
-cd '/home/germinoci/Develop/_projects/mou/service-approval-process/src/main/docker'
-`docker-compose up -d`

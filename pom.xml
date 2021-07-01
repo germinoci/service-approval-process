@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>sk.gov.mou</groupId>
   <artifactId>service-approval-process</artifactId>
@@ -36,10 +35,10 @@
       <groupId>org.kie.kogito</groupId>
       <artifactId>kogito-quarkus</artifactId>
     </dependency>
-    <!-- <dependency>
+    <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>kogito-quarkus-rules</artifactId>
-    </dependency> -->
+    </dependency>
     <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>kogito-quarkus-decisions</artifactId>
@@ -78,7 +77,6 @@
       <artifactId>quarkus-smallrye-openapi</artifactId>
     </dependency>
 
-
     <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>process-management-addon</artifactId>
@@ -113,6 +111,7 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>kogito-cloudevents-quarkus-addon</artifactId>
@@ -122,19 +121,15 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-qute</artifactId>
     </dependency>
+
     <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>jobs-management-quarkus-addon</artifactId>
     </dependency>
 
-
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-vertx-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.kie.kogito</groupId>
-      <artifactId>kogito-cloudevents-quarkus-addon</artifactId>
     </dependency>
 
 
@@ -144,20 +139,32 @@
       <artifactId>quarkus-oidc</artifactId>
     </dependency>
 
-
-<!-- test -->
-
-
-    <!-- <dependency>
+    <!-- test -->
+    <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
       <scope>test</scope>
     </dependency>
+
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
       <scope>test</scope>
-    </dependency> -->
+    </dependency>
+
+    <dependency>
+      <groupId>org.keycloak</groupId>
+      <artifactId>keycloak-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.kie.kogito</groupId>
+      <artifactId>kogito-test-utils</artifactId>
+      <version>1.8.0.Final</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -175,80 +182,12 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.0</version>
+    </plugin>
     </plugins>
   </build>
 
-  <!-- <build>
-
-    <plugins>
-      <plugin>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-maven-plugin</artifactId>
-      <version>${quarkus-plugin.version}</version>
-      <extensions>true</extensions>
-      <executions>
-      <execution>
-      <goals>
-      <goal>build</goal>
-      <goal>generate-code</goal>
-      <goal>generate-code-tests</goal>
-      </goals>
-      </execution>
-      </executions>
-      </plugin>
-      <plugin>
-      <artifactId>maven-compiler-plugin</artifactId>
-      <version>${compiler-plugin.version}</version>
-      <configuration>
-      <parameters>${maven.compiler.parameters}</parameters>
-      </configuration>
-      </plugin>
-      <plugin>
-      <artifactId>maven-surefire-plugin</artifactId>
-      <version>${surefire-plugin.version}</version>
-      <configuration>
-      <systemPropertyVariables>
-      <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-      <maven.home>${maven.home}</maven.home>
-      </systemPropertyVariables>
-      </configuration>
-      </plugin>
-      </plugins>
-      </build>
-      <profiles>
-      <profile>
-      <id>native</id>
-      <activation>
-      <property>
-      <name>native</name>
-      </property>
-      </activation>
-      <build>
-      <plugins>
-      <plugin>
-      <artifactId>maven-failsafe-plugin</artifactId>
-      <version>${surefire-plugin.version}</version>
-      <executions>
-      <execution>
-      <goals>
-      <goal>integration-test</goal>
-      <goal>verify</goal>
-      </goals>
-      <configuration>
-      <systemPropertyVariables>
-      <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
-      <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-      <maven.home>${maven.home}</maven.home>
-      </systemPropertyVariables>
-      </configuration>
-      </execution>
-      </executions>
-      </plugin>
-      </plugins>
-      </build>
-      <properties>
-      <quarkus.package.type>native</quarkus.package.type>
-      </properties>
-      </profile>
-      </profiles> -->
 </project>
