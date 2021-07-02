@@ -8,4 +8,6 @@ spec:
   image: quay.io/kiegroup/kogito-task-console
   env:
     - name: KOGITO_DATAINDEX_HTTP_URL
-      value: http://10.101.147.113:8080
+      value: http://10.106.4.125:8080
+    - name: KOGITO_TASK_CONSOLE_PROPS
+      value: -Dkogito.test.user-system.enabled=true
