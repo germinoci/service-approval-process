@@ -1,8 +1,10 @@
 apiVersion: infinispan.org/v1
 kind: Infinispan
 metadata:
-  name: example-infinispan
+  name: kogito-infinispan
+  annotations:
+    infinispan.org/monitoring: 'true'
 spec:
   replicas: 2
-  expose: 
-    type: LoadBalancer
+  service:
+    type: Cache

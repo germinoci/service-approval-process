@@ -6,4 +6,4 @@ spec:
   resource:
     apiVersion: infinispan.org/v1
     kind: Infinispan
-    name: example-infinispan
+    name: kogito-infinispan

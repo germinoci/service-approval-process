@@ -4,51 +4,20 @@ metadata:
   name: service-approval-process
 spec:
   replicas: 1
-  image: docker.demor.sk/kogito/service-approval-process:latest
+  image: docker.demor.sk/kogito/service-approval-process:test
   infra:
     - infinispan-infra
+    - kafka-infra
   env:
     - name: quarkus.infinispan-client.sasl-mechanism
       value: SCRAM-SHA-256
     - name: kogito.dataindex.http.url
-      value: http://10.106.4.125:8080
+      value: http://10.102.149.191:8080
     - name: kogito.dataindex.ws.url 
-      value: ws://10.106.4.125:8080
-    - name: kogito.service.url
-      value: http://10.101.144.65:8080
-    - name: kogito.jobs-service.url
-      value: http://10.97.81.12:8080
+      value: ws://10.102.149.191:8080
+#    - name: kogito.service.url
+#      value: http://10.101.144.65:8080
+#    - name: kogito.jobs-service.url
+#      value: http://10.97.81.12:8080
     - name: kafka.bootstrap.servers
-      value: http://10.101.127.211:9092
-    - name: mp.messaging.outgoing.kogito-processinstances-events.bootstrap.servers
-      value: http://10.101.127.211:9092
-    - name: mp.messaging.outgoing.kogito-processinstances-events.connector
-      value: smallrye-kafka
-    - name: mp.messaging.outgoing.kogito-processinstances-events.topic
-      value: kogito-processinstances-events 
-    - name: mp.messaging.outgoing.kogito-processinstances-events.value.serializer
-      value: org.apache.kafka.common.serialization.StringSerializer
-    - name: mp.messaging.outgoing.kogito-usertaskinstances-events.bootstrap.servers
-      value: http://10.101.127.211:9092
-    - name: mp.messaging.outgoing.kogito-usertaskinstances-events.connector
-      value: smallrye-kafka
-    - name: mp.messaging.outgoing.kogito-usertaskinstances-events.topic
-      value: kogito-usertaskinstances-events 
-    - name: mp.messaging.outgoing.kogito-usertaskinstances-events.value.serializer
-      value: org.apache.kafka.common.serialization.StringSerializer
-    - name: mp.messaging.outgoing.kogito-variables-events.bootstrap.servers
-      value: http://10.101.127.211:9092
-    - name: mp.messaging.outgoing.kogito-variables-events.connector
-      value: smallrye-kafka
-    - name: mp.messaging.outgoing.kogito-variables-events.topic
-      value: kogito-variables-events
-    - name: mp.messaging.outgoing.kogito-variables-events.value.serializer
-      value: org.apache.kafka.common.serialization.StringSerializer
-    - name: mp.messaging.outgoing.kogito-job-service-job-status-events.bootstrap.servers
-      value: http://10.101.127.211:9092
-    - name: mp.messaging.outgoing.kogito-job-service-job-status-events.connector
-      value: smallrye-kafka
-    - name: mp.messaging.outgoing.kogito-job-service-job-status-events.topic
-      value: kogito-job-service-job-status-events
-    - name: mp.messaging.outgoing.kogito-job-service-job-status-events.value.serializer
-      value: org.apache.kafka.common.serialization.StringSerializer
+      value: http://10.98.163.116:9092
