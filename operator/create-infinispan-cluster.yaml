@@ -2,9 +2,7 @@ apiVersion: infinispan.org/v1
 kind: Infinispan
 metadata:
   name: kogito-infinispan
-  annotations:
-    infinispan.org/monitoring: 'true'
 spec:
-  replicas: 2
-  service:
-    type: Cache
+  replicas: 1
+expose:
+  type: NodePort

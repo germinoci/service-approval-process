@@ -7,8 +7,8 @@ spec:
   replicas: 1
   image: quay.io/kiegroup/kogito-data-index-infinispan
   infra:
-     - infinispan-infra
-     - kafka-infra
+    - infinispan-infra
+    - kafka-infra
   env:
-  - name: quarkus.infinispan-client.sasl-mechanism
-    value: SCRAM-SHA-256
+    - name: QUARKUS_INFINISPAN_CLIENT_SASL_MECHANISM
+      value: SCRAM-SHA-512

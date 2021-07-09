@@ -1,9 +1,0 @@
-apiVersion: app.kiegroup.org/v1beta1
-kind: KogitoInfra
-metadata:
-  name: data-index-infra
-spec:
-  resource:
-    apiVersion: app.kiegroup.org/v1beta1
-    kind: KogitoSupportingService
-    name: data-index
