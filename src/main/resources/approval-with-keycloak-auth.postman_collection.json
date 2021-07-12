@@ -1,0 +1,330 @@
+{
+	"info": {
+		"_postman_id": "ce9adc2c-b53c-44c0-a6ac-10c01726509f",
+		"name": "approval-with-keycloak-auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET service_approval list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/service_approval",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"service_approval"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET service_approval record",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/service_approval/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"service_approval",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE service_approval",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isApproved\": false,\n    \"isAssigned\": false,\n    \"isPublished\": false,\n    \"serviceData\": {\n        \"serviceId\": \"serviceId\",\n        \"status\": \"STARTED\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/service_approval?businessKey=",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"service_approval"
+					],
+					"query": [
+						{
+							"key": "businessKey",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TASKS service_approval",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/service_approval/:id/tasks",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"service_approval",
+						":id",
+						"tasks"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "faa46675-2504-4a17-8b6d-c7dee09f0b82"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE service_approval",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/service_approval/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"service_approval",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "COMPLETE serviceSelectionAndAssessment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"assignToManager\": true,\n  \"serviceData\": {\n    \"serviceId\": \"serviceId\",\n    \"status\": \"ASSIGNED\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/service_approval/:id/serviceSelectionAndAssessment/:taskId/phases/complete",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"service_approval",
+						":id",
+						"serviceSelectionAndAssessment",
+						":taskId",
+						"phases",
+						"complete"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						},
+						{
+							"key": "taskId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "COMPLETE serviceApproval",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"approveThisService\": true,\n  \"serviceData\": {\n    \"serviceId\": \"serviceId\",\n    \"status\": \"APPROVED\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/service_approval/:id/serviceApproval/:taskId/phases/complete",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"service_approval",
+						":id",
+						"serviceApproval",
+						":taskId",
+						"phases",
+						"complete"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						},
+						{
+							"key": "taskId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "COMPLETE servicePublishing",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"publishThisService\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/service_approval/:id/servicePublishing/:taskId/phases/complete",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"service_approval",
+						":id",
+						"servicePublishing",
+						":taskId",
+						"phases",
+						"complete"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						},
+						{
+							"key": "taskId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "redirect_uri",
+				"value": "http://localhost:8080/",
+				"type": "string"
+			},
+			{
+				"key": "useBrowser",
+				"value": false,
+				"type": "boolean"
+			},
+			{
+				"key": "client_authentication",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "token",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "openid",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "kogito-app",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "http://localhost:8480/auth/realms/kogito/protocol/openid-connect/token",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "http://localhost:8480/auth/realms/kogito/protocol/openid-connect/auth",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "secret",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		}
+	]
+}
