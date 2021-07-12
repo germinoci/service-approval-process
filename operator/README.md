@@ -1,6 +1,6 @@
 vytvorenie namespace
 --------------------
-kubectl create -f create-namespace.yaml
+kubectl create -f operator/create-namespace.yaml
 
 prepnutie sa na namespace
 -------------------------
@@ -10,61 +10,87 @@ kubectl config set-context --current --namespace=infinispan-namespace
 instalacia infinispan operatora
 -------------------------------
 zdroj yaml suboru: https://raw.githubusercontent.com/infinispan/infinispan-operator/2.1.x/deploy/operator-install.yaml
-kubectl apply -f infinispan-operator-install.yaml
+kubectl apply -f operator/infinispan-operator-install.yaml
 
 
-spustenia clustra s dvomi instanciami
+spustenia infinispan clustra
 -------------------------------------
 zdroj yaml suboru: https://raw.githubusercontent.com/infinispan/infinispan-operator/2.1.x/deploy/cr/minimal/cr_minimal.yaml
-kubectl apply -f create-infinispan-cluster.yaml
+kubectl apply -f operator/create-infinispan-cluster.yaml
 
 
-nastavenie kogito infra s infinispanom
+vytvorenie kogito infra pre infinispan
 --------------------------------------
 kubectl apply -f operator/kogito-infinispan-infra.yaml
 
 build + push docker image
 -------------------------
 mvn clean package
-docker build -f src/main/docker/quarkus-jvm.Dockerfile -t docker.demor.sk/kogito/service-approval-process:latest .
-docker push docker.demor.sk/kogito/service-approval-process:latest
-
-spustenie kogito runtime s infinispanom
----------------------------------------
-kubectl apply -f kogito-runtime-process.yaml
-kubectl expose deployment service-approval-process --type=LoadBalancer --name=service-approval-process-exposed
-
-
-
+docker build -f src/main/docker/quarkus-jvm.Dockerfile -t docker.demor.sk/kogito/service-approval-process:test .
+docker push docker.demor.sk/kogito/service-approval-process:test
 
 instalacia kafka operatora
 --------------------------
 zdroj yaml suboru: https://strimzi.io/install/latest?namespace=infinispan-namespace s parametrizovanym namespacom
-kubectl apply -f kafka-operator-install.yaml 
+kubectl apply -f operator/kafka-operator-install.yaml 
 
 spustenie clustra kafka + zookeeper
 -----------------------------------
 zdroj yaml suboru: https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml
-kubectl apply -f create-kafka-cluster.yaml
+kubectl apply -f operator/create-kafka-cluster.yaml
 
-nastavenie kogito infra s kafkom
---------------------------------
-kubectl apply -f kogito-kafka-infra.yaml
+vytvorenie kogito infra pre kafku
+---------------------------------
+kubectl apply -f operator/kogito-kafka-infra.yaml
 
 instalacia data index
 ---------------------
 kubectl apply -f operator/kogito-data-index.yaml
 
-vytvorenie kogito infra pre data index
---------------------------------------
-kubectl apply -f operator/kogito-data-index-infra.yaml
-
-
 instalacia kogito task console
 ------------------------------
+v yamli treba nastavit spravnu URL data indexu
 kubectl apply -f operator/kogito-task-console.yaml
-kubectl expose deployment task-console --type=LoadBalancer --name=task-console-exposed
+
+spustenie kogito runtime s infinispanom
+---------------------------------------
+v yamli treba nastavit spravne URL pre kafku a data-index
+kubectl apply -f operator/kogito-runtime-process.yaml
+
+pridanie usera do task console
+------------------------------
+otvorit task console v browsri
+kliknut vpravo hore na sipku, vybrat z menu Add new user, pridat usera userId: officer groups: officer
 
 
+spustenie procesu
+-----------------
+POST http://<service_approval_process_ip_address>/approvals?businessKey=123
+Request body:
+{
+  "isApproved": false,
+  "isAssigned": false,
+  "isPublished": false
+}
 
+posunutie procesu do dalsej fazy
+--------------------------------
+otvorit v browsri graphql konzolu data indexu
+spustit query, ktorou zistime id user tasku:
+{
+  UserTaskInstances {
+    id
+  }
+}
 
+GET http://<service_approval_process_ip_address>/approvals - ziskanie id instancii procesu
+
+POST http://<service_approval_process_ip_address>/approvals/<approval_id>/serviceSelectionAndAssessment/<task_id>/phases/complete?group=officer&user=officer
+Request body:
+{
+  "isFromUserApproved": true,
+  "service": {
+    "serviceId": "123",
+    "status": "APPROVED"
+  }
+}

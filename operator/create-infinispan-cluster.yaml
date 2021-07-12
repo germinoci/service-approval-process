@@ -3,6 +3,6 @@ kind: Infinispan
 metadata:
   name: kogito-infinispan
 spec:
-  replicas: 1
+  replicas: 2
 expose:
   type: NodePort

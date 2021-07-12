@@ -12,12 +12,12 @@ spec:
     - name: QUARKUS_INFINISPAN_CLIENT_SASL_MECHANISM
       value: SCRAM-SHA-512
     - name: kogito.dataindex.http.url
-      value: http://10.107.67.62:80
+      value: http://10.98.217.196:80
     - name: kogito.dataindex.ws.url 
-      value: ws://10.107.67.62:80
+      value: ws://10.98.217.196:80
 #    - name: kogito.service.url
 #      value: http://10.100.83.52:80
 #    - name: kogito.jobs-service.url
 #      value: http://10.97.81.12:8080
     - name: kafka.bootstrap.servers
-      value: http://10.98.177.9:9092
+      value: http://10.111.230.104:9092
