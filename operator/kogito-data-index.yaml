@@ -5,7 +5,7 @@ metadata:
 spec:
   serviceType: DataIndex
   replicas: 1
-  image: quay.io/kiegroup/kogito-data-index-infinispan
+  image: quay.io/kiegroup/kogito-data-index-infinispan:1.6
   infra:
     - infinispan-infra
     - kafka-infra

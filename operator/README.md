@@ -1,96 +1,67 @@
-vytvorenie namespace
---------------------
-kubectl create -f operator/create-namespace.yaml
+Instalacia operatorov pre infinispan a kafka
+--------------------------------------------
+```./install-operators.sh```
 
-prepnutie sa na namespace
--------------------------
-kubectl config set-context --current --namespace=infinispan-namespace
+Nasadenie infinispan + kafka + data-index
+-----------------------------------------
+```./deploy-kogito-infra.sh```
 
+Dalej je potrebne upravit URL adresy pre kafku a data-index v kogito-runtime-process.yaml,
+kogito-management-console.yaml a kogito-task-console.yaml podla IP adries, ktore zistime
+prikazom kubectl get services.
 
-instalacia infinispan operatora
--------------------------------
-zdroj yaml suboru: https://raw.githubusercontent.com/infinispan/infinispan-operator/2.1.x/deploy/operator-install.yaml
-kubectl apply -f operator/infinispan-operator-install.yaml
-
-
-spustenia infinispan clustra
--------------------------------------
-zdroj yaml suboru: https://raw.githubusercontent.com/infinispan/infinispan-operator/2.1.x/deploy/cr/minimal/cr_minimal.yaml
-kubectl apply -f operator/create-infinispan-cluster.yaml
+Nasadenie kogito runtime service + management + task console
+------------------------------------------------------------
+```./deploy-runtime-and-consoles.sh```
 
 
-vytvorenie kogito infra pre infinispan
---------------------------------------
-kubectl apply -f operator/kogito-infinispan-infra.yaml
-
-build + push docker image
--------------------------
-mvn clean package
-docker build -f src/main/docker/quarkus-jvm.Dockerfile -t docker.demor.sk/kogito/service-approval-process:test .
-docker push docker.demor.sk/kogito/service-approval-process:test
-
-instalacia kafka operatora
---------------------------
-zdroj yaml suboru: https://strimzi.io/install/latest?namespace=infinispan-namespace s parametrizovanym namespacom
-kubectl apply -f operator/kafka-operator-install.yaml 
-
-spustenie clustra kafka + zookeeper
------------------------------------
-zdroj yaml suboru: https://strimzi.io/examples/latest/kafka/kafka-persistent-single.yaml
-kubectl apply -f operator/create-kafka-cluster.yaml
-
-vytvorenie kogito infra pre kafku
----------------------------------
-kubectl apply -f operator/kogito-kafka-infra.yaml
-
-instalacia data index
----------------------
-kubectl apply -f operator/kogito-data-index.yaml
-
-instalacia kogito task console
+Pridanie usera do task console
 ------------------------------
-v yamli treba nastavit spravnu URL data indexu
-kubectl apply -f operator/kogito-task-console.yaml
-
-spustenie kogito runtime s infinispanom
----------------------------------------
-v yamli treba nastavit spravne URL pre kafku a data-index
-kubectl apply -f operator/kogito-runtime-process.yaml
-
-pridanie usera do task console
-------------------------------
-otvorit task console v browsri
-kliknut vpravo hore na sipku, vybrat z menu Add new user, pridat usera userId: officer groups: officer
+- otvorit task console v browsri
+- kliknut vpravo hore na sipku, vybrat z menu Add new user, pridat usera userId: officer groups: officer
 
 
-spustenie procesu
+Spustenie procesu
 -----------------
-POST http://<service_approval_process_ip_address>/approvals?businessKey=123
-Request body:
-{
-  "isApproved": false,
-  "isAssigned": false,
-  "isPublished": false
-}
+```POST http://<service_approval_process_ip_address>/approvals?businessKey=789```
 
-posunutie procesu do dalsej fazy
+Request body:
+
+```
+{
+    "isApproved": false,
+    "isAssigned": false,
+    "isPublished": false,
+    "serviceData": {
+        "serviceId": "789",
+        "status": "STARTED"
+    }
+}
+```
+
+Posunutie procesu do dalsej fazy
 --------------------------------
-otvorit v browsri graphql konzolu data indexu
-spustit query, ktorou zistime id user tasku:
+- otvorit v browsri graphql konzolu data indexu
+- spustit query, ktorou zistime id user tasku (task_id):
+```
 {
   UserTaskInstances {
     id
   }
 }
+```
 
-GET http://<service_approval_process_ip_address>/approvals - ziskanie id instancii procesu
+```GET http://<service_approval_process_ip_address>/approvals - ziskanie id instancii procesu (approval_id)```
 
-POST http://<service_approval_process_ip_address>/approvals/<approval_id>/serviceSelectionAndAssessment/<task_id>/phases/complete?group=officer&user=officer
+```POST http://<service_approval_process_ip_address>/approvals/<approval_id>/serviceSelectionAndAssessment/<task_id>/phases/complete?group=officer&user=officer```
+
 Request body:
+```
 {
-  "isFromUserApproved": true,
+  "isFromUserAssigned": true,
   "service": {
-    "serviceId": "123",
-    "status": "APPROVED"
+    "serviceId": "789",
+    "status": "ASSIGNED"
   }
 }
+```
