@@ -5,7 +5,7 @@ metadata:
 spec:
   serviceType: JobsService
   replicas: 1
-  image: quay.io/kiegroup/kogito-jobs-service
+  image: quay.io/kiegroup/kogito-jobs-service:1.6
   infra:
      - infinispan-infra
      - kafka-infra
@@ -15,6 +15,6 @@ spec:
   - name: ENABLE_EVENTS
     value: "true"
   - name: KOGITO_JOBS_PROPS
-    value: -Dquarkus-profile=events-support -D%events-support.quarkus.http.port=8080 -D%events-support.kafka.bootstrap.servers=http://10.111.230.104:9092
-                         -D%events-support.mp.messaging.outgoing.kogito-job-service-job-status-events.bootstrap.servers=http://10.111.230.104:9092
+    value: -Dquarkus-profile=events-support -D%events-support.quarkus.http.port=8080 -D%events-support.kafka.bootstrap.servers=http://10.108.120.108:9092
+                         -D%events-support.mp.messaging.outgoing.kogito-job-service-job-status-events.bootstrap.servers=http://10.108.120.108:9092
                          -Dkogito.service.url=http://0.0.0.0:8080

@@ -7,7 +7,7 @@ Nasadenie infinispan + kafka + data-index
 ```./deploy-kogito-infra.sh```
 
 Dalej je potrebne upravit URL adresy pre kafku a data-index v kogito-runtime-process.yaml,
-kogito-management-console.yaml a kogito-task-console.yaml podla IP adries, ktore zistime
+kogito-job-service.yaml,kogito-management-console.yaml a kogito-task-console.yaml podla IP adries, ktore zistime
 prikazom kubectl get services.
 
 Nasadenie kogito runtime service + management + task console
