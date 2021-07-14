@@ -1369,7 +1369,7 @@ spec:
       serviceAccountName: infinispan-operator
       containers:
         - name: infinispan-operator
-          image: quay.io/infinispan/operator:2.1.x
+          image: quay.io/infinispan/operator:2.0.x
           ports:
           - containerPort: 60000
             name: metrics
@@ -1388,4 +1388,4 @@ spec:
             - name: OPERATOR_NAME
               value: "infinispan-operator"
             - name: RELATED_IMAGE_OPENJDK
-              value: "quay.io/infinispan/server:12.1"
+              value: "quay.io/infinispan/server:11.0.4.Final"

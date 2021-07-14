@@ -123,10 +123,10 @@
       <artifactId>quarkus-qute</artifactId>
     </dependency>
 
-<!--    <dependency>
+    <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>jobs-management-quarkus-addon</artifactId>
-    </dependency>-->
+    </dependency>
 
     <dependency>
       <groupId>io.quarkus</groupId>
