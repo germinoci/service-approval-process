@@ -57,8 +57,8 @@ services:
     ports:
       - "8480:8080"
     volumes:
-      # - ./keycloak/export/kogito-realm.json:/tmp/kogito-realm.json
-      - "$PWD/keycloak/import:/tmp/import"
+       - ./keycloak/kogito-realm.json:/tmp/kogito-realm.json
+#      - "$PWD/keycloak/import:/tmp/import"
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8080/auth/realms/kogito" ]
       interval: 1s
@@ -67,9 +67,9 @@ services:
     environment:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
-      # KEYCLOAK_IMPORT: /tmp/kogito-realm.json
+      KEYCLOAK_IMPORT: /tmp/kogito-realm.json
       # command: -b 0.0.0.0 -Dkeycloak.migration.action=export -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/tmp/export -Dkeycloak.profile.feature.upload_scripts=enabled
-    command: -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/tmp/import -Dkeycloak.migration.strategy=IGNORE_EXISTING 
+      # command: -b 0.0.0.0 -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/tmp/import -Dkeycloak.migration.strategy=IGNORE_EXISTING
 
   data-index:
     container_name: data-index

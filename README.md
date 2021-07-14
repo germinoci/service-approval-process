@@ -7,7 +7,7 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 
 ### Use the application
 
-Examine OpenAPI via swagger UI at [http://localhost:8080/swagger-ui](http://localhost:8080/swagger-ui)
+Examine OpenAPI via swagger UI at [http://localhost:8080/q/swagger-ui/](http://localhost:8080/q/swagger-ui/)
 
 ## Running the application in dev mode
 
@@ -47,6 +47,10 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 ```
 
 You can then execute your native executable with: `./target/service-approval-process-1.0.0-SNAPSHOT-runner`
+
+Run with integration test
+use mvn verify
+
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.html.
 
