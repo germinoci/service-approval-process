@@ -6,12 +6,16 @@ Nasadenie infinispan + kafka + data-index
 -----------------------------------------
 ```./deploy-kogito-infra.sh```
 
-Dalej je potrebne upravit URL adresy pre kafku, data-index a job service v kogito-runtime-process.yaml,
-kogito-job-service.yaml,kogito-management-console.yaml a kogito-task-console.yaml podla IP adries, ktore zistime
+Dalej je potrebne upravit URL adresy pre kafku, data-index a job service v kogito-job-service.yaml, 
+kogito-management-console.yaml a kogito-task-console.yaml podla IP adries, ktore zistime
 prikazom kubectl get services.
 
-Nasadenie kogito runtime service + management + task console
+Nasadenie management + task console + job service
 ------------------------------------------------------------
+```./deploy-consoles.sh```
+
+Nasadenie Kogito Runtime Service
+--------------------------------
 Pre nasadenie Kogito Runtime Service je potrebne urobit build projektu, ktory chceme nasadit,
 vytvorit docker image a pushnut ho do registry, napr. v pripade service-approval-service:
 
@@ -20,8 +24,8 @@ mvn clean package
 docker build -f src/main/docker/quarkus-jvm.Dockerfile -t docker.demor.sk/kogito/service-approval-process:test .
 docker push docker.demor.sk/kogito/service-approval-process:test
 ```
-
-```./deploy-consoles.sh```
+V subore kogito-runtime-process.yaml upravime URL pre kafku, data index a job service.
+Spustime prikaz ```kubectl apply -f operator/kogito-runtime-process.yaml```.
 
 Po nasadeni je nutne upravit environment premennu pre ip adresu kogito servisu na aktualnu (pouziva ju task console)
 v subore kogito-runtime-process.yaml:
@@ -52,14 +56,13 @@ spec:
       value: http://10.97.137.0:9092
 ```
 
-Nasadenie Kogito Runtime Service
---------------------------------
-kubectl apply -f operator/kogito-runtime-process.yaml
+A potom znovu spustit ```kubectl apply -f operator/kogito-runtime-process.yaml``` pre aplikovanie zmien.
 
 Pridanie usera do task console
 ------------------------------
 - otvorit task console v browsri
 - kliknut vpravo hore na sipku, vybrat z menu Add new user, pridat usera userId: officer groups: officer
+ a usera userId: manager groups: manager
 
 
 Spustenie procesu
@@ -78,3 +81,4 @@ Request body:
         "status": "STARTED"
     }
 }
+```
