@@ -2,19 +2,7 @@ Instalacia operatorov pre infinispan a kafka
 --------------------------------------------
 ```./install-operators.sh```
 
-Nasadenie infinispan + kafka + data-index
------------------------------------------
-```./deploy-kogito-infra.sh```
-
-Dalej je potrebne upravit URL adresy pre kafku, data-index a job service v kogito-job-service.yaml, 
-kogito-management-console.yaml a kogito-task-console.yaml podla IP adries, ktore zistime
-prikazom kubectl get services.
-
-Nasadenie management + task console + job service
-------------------------------------------------------------
-```./deploy-consoles.sh```
-
-Nasadenie Kogito Runtime Service
+Kogito Runtime Service
 --------------------------------
 Pre nasadenie Kogito Runtime Service je potrebne urobit build projektu, ktory chceme nasadit,
 vytvorit docker image a pushnut ho do registry, napr. v pripade service-approval-service:
@@ -24,39 +12,17 @@ mvn clean package
 docker build -f src/main/docker/quarkus-jvm.Dockerfile -t docker.demor.sk/kogito/service-approval-process:test .
 docker push docker.demor.sk/kogito/service-approval-process:test
 ```
-V subore kogito-runtime-process.yaml upravime URL pre kafku, data index a job service.
-Spustime prikaz ```kubectl apply -f operator/kogito-runtime-process.yaml```.
 
-Po nasadeni je nutne upravit environment premennu pre ip adresu kogito servisu na aktualnu (pouziva ju task console)
-v subore kogito-runtime-process.yaml:
+Nasadenie
+---------
+```./deploy-all.sh```
 
-```
-apiVersion: app.kiegroup.org/v1beta1
-kind: KogitoRuntime
-metadata:
-  name: service-approval-process
-spec:
-  replicas: 1
-  image: docker.demor.sk/kogito/service-approval-process:test
-  infra:
-    - infinispan-infra
-    - kafka-infra
-  env:
-    - name: QUARKUS_INFINISPAN_CLIENT_SASL_MECHANISM
-      value: SCRAM-SHA-512
-    - name: kogito.dataindex.http.url
-      value: http://10.101.34.42:80
-    - name: kogito.dataindex.ws.url 
-      value: ws://10.101.34.42:80
-    - name: kogito.service.url
-      value: http://10.105.93.216:80   #tuto adresu treba upravit
-    - name: kogito.jobs-service.url
-      value: http://10.99.98.40:80
-    - name: kafka.bootstrap.servers
-      value: http://10.97.137.0:9092
-```
+Pridanie ingress host do /etc/hosts
+-----------------------------------
+- prikazom ```minikube ip``` zistit IP adresu minikube
+- pridat do /etc/hosts zaznam - hostname pouzijeme taky, aky sme si zvolili v ingress.yaml
 
-A potom znovu spustit ```kubectl apply -f operator/kogito-runtime-process.yaml``` pre aplikovanie zmien.
+
 
 Pridanie usera do task console
 ------------------------------
@@ -67,7 +33,7 @@ Pridanie usera do task console
 
 Spustenie procesu
 -----------------
-```POST http://<service_approval_process_ip_address>/approvals?businessKey=789```
+```POST http://<service_approval_process_host>/approvals?businessKey=789```
 
 Request body:
 
