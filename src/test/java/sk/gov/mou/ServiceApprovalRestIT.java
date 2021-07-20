@@ -13,12 +13,9 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
-// import static org.junit.jupiter.api.Assertions.assertEquals;
-
 @QuarkusTest
 @QuarkusTestResource(KeycloakQuarkusTestResource.class)
 @QuarkusTestResource(value = KafkaQuarkusTestResource.class)
-
 public class ServiceApprovalRestIT {
 
     private static final String PROCESS_ROOT_URL = "/service_approval/";

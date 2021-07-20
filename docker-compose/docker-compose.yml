@@ -53,7 +53,7 @@ services:
 
   keycloak:
     container_name: keycloak
-    image: quay.io/keycloak/keycloak:latest
+    image: quay.io/keycloak/keycloak:14.0.0
     ports:
       - "8480:8080"
     volumes:
