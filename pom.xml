@@ -8,10 +8,11 @@
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
-        <quarkus.version>1.13.3.Final</quarkus.version>
-        <kogito.version>1.7.0.Final</kogito.version>
+        <quarkus.version>2.0.0.Final</quarkus.version>
+        <kogito.version>1.8.0.Final</kogito.version>
         <surefire.version>3.0.0-M5</surefire.version>
         <compiler.version>3.8.1</compiler.version>
+        <surefire.forkCount>1</surefire.forkCount>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>11</maven.compiler.release>
         <failsafe.include>**/*IT.java</failsafe.include>
@@ -67,7 +68,7 @@
         <!-- persistence -->
         <dependency>
             <groupId>org.kie.kogito</groupId>
-            <artifactId>infinispan-persistence-addon</artifactId>
+            <artifactId>kogito-addons-persistence-infinispan</artifactId>
         </dependency>
 
         <dependency>
@@ -75,24 +76,25 @@
             <artifactId>quarkus-infinispan-client</artifactId>
         </dependency>
 
+        <!-- management -->
         <dependency>
             <groupId>org.kie.kogito</groupId>
-            <artifactId>process-svg-quarkus-addon</artifactId>
+            <artifactId>kogito-addons-quarkus-process-svg</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.kie.kogito</groupId>
-            <artifactId>process-management-addon</artifactId>
+            <artifactId>kogito-addons-quarkus-process-management</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.kie.kogito</groupId>
-            <artifactId>jobs-management-quarkus-addon</artifactId>
+            <artifactId>kogito-addons-quarkus-jobs-management</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.kie.kogito</groupId>
-            <artifactId>kogito-events-reactive-messaging-addon</artifactId>
+            <artifactId>kogito-addons-quarkus-events-smallrye</artifactId>
         </dependency>
 
         <dependency>
@@ -102,7 +104,7 @@
 
         <dependency>
             <groupId>org.kie.kogito</groupId>
-            <artifactId>kogito-cloudevents-quarkus-addon</artifactId>
+            <artifactId>kogito-addons-quarkus-cloudevents</artifactId>
         </dependency>
 
 
@@ -160,7 +162,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${compiler.version}</version>
                 <configuration>
-                    <release>11</release>
+                    <release>${maven.compiler.release}</release>
                 </configuration>
             </plugin>
 
@@ -178,11 +180,14 @@
                         <exclude>${failsafe.exclude}</exclude>
                     </excludes>
                     <systemPropertyVariables>
+                        <enable.resource.infinispan>true</enable.resource.infinispan>
+                        <enable.resource.kafka>true</enable.resource.kafka>
                         <container.image.keycloak>quay.io/keycloak/keycloak:14.0.0</container.image.keycloak>
-                        <container.image.infinispan>infinispan/server:11.0.4.Final</container.image.infinispan>
+                        <container.image.infinispan>infinispan/server:12.1.4.Final</container.image.infinispan>
                         <container.image.kafka>confluentinc/cp-kafka</container.image.kafka>
                         <native.image.path>${project.build.directory}/${project.build.finalName}-runner
                         </native.image.path>
+<!--                        <native.image.source></native.image.source>-->
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                         <quarkus.http.test-port>${tests.quarkus.http.port}</quarkus.http.test-port>
                     </systemPropertyVariables>

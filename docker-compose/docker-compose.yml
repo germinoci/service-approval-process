@@ -3,7 +3,7 @@ version: '2.1'
 services:
 
   infinispan:
-    image: infinispan/server:11.0.4.Final
+    image: infinispan/server:12.1.4.Final
     container_name: infinispan
     ports:
         - 11222:11222
@@ -91,7 +91,7 @@ services:
   jobs-service:
     container_name: jobs-service
     network_mode: "host"
-    image: quay.io/kiegroup/kogito-jobs-service:${KOGITO_VERSION}
+    image: quay.io/kiegroup/kogito-jobs-service:latest
     depends_on:
       kafka:
         condition: service_started

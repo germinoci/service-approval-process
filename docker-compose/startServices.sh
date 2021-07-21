@@ -6,7 +6,7 @@ PROJECT_VERSION=$(cd ../ && mvn help:evaluate -Dexpression=project.version -q -D
 
 echo "Project version: ${PROJECT_VERSION}"
 
-KOGITO_VERSION="1.7.0"
+KOGITO_VERSION="1.8.0"
 
 echo "Kogito Image version: ${KOGITO_VERSION}"
 echo "KOGITO_VERSION=${KOGITO_VERSION}" > ".env"
